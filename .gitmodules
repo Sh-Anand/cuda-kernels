@@ -1,3 +1,3 @@
-[submodule "pathtracer"]
-	path = pathtracer/pathtracer
+[submodule "pt/pathtracer"]
+	path = pt/pathtracer
 	url = git@github.com:Sh-Anand/pathtracer.git
