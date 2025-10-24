@@ -24,6 +24,7 @@ $(OUTPUT_DIR):
 	@mkdir -p $@
 
 move: ninja | $(OUTPUT_DIR)
+	@$(CMAKE) -E copy $(BUILD_ROOT)/pathtracer.cubin $(OUTPUT_DIR)/pathtracer.cubin
 	@$(CMAKE) -E copy $(BUILD_ROOT)/pathtracer.ptx $(OUTPUT_DIR)/pathtracer.ptx
 	@$(CMAKE) -E copy $(BUILD_ROOT)/pathtracer.sass $(OUTPUT_DIR)/pathtracer.sass
 
