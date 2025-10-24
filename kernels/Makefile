@@ -4,7 +4,8 @@ NVCC ?= nvcc
 NVCC_CCBIN ?= /usr/bin/g++-14
 NVCC_ARCH ?= compute_86
 NVCC_CODE ?= sm_86
-NVCC_FLAGS ?= -arch=$(NVCC_ARCH) -code=$(NVCC_CODE) -cubin
+NVCC_CUBIN_FLAGS ?= -arch=$(NVCC_ARCH) -code=$(NVCC_CODE) -cubin
+NVCC_PTX_FLAGS ?= -arch=$(NVCC_ARCH) -ptx
 
 BUILD_DIR := build
 KERNEL_DIRS := $(filter-out $(BUILD_DIR),$(patsubst %/,%,$(wildcard */)))
@@ -31,7 +32,8 @@ build/%.cubin: | $(BUILD_DIR)
 	  exit 1; \
 	fi; \
 	echo "Building $@ from $$src"; \
-	NVCC_CCBIN=$(NVCC_CCBIN) $(NVCC) $(NVCC_FLAGS) "$$src" -o "$@"
+	NVCC_CCBIN=$(NVCC_CCBIN) $(NVCC) $(NVCC_CUBIN_FLAGS) "$$src" -o "$@"; \
+	NVCC_CCBIN=$(NVCC_CCBIN) $(NVCC) $(NVCC_PTX_FLAGS) "$$src" -o "$(BUILD_DIR)/$*.ptx"
 
 clean:
 	@rm -rf $(BUILD_DIR)
